@@ -1,0 +1,11 @@
+openai
+pandas
+tqdm
+python-dotenv
+wandb
+seaborn
+fastapi
+pydantic
+chainlit
+markdown2
+weasyprint

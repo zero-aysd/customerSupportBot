@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  backend:
+    build: .
+    container_name: chatbot_backend
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - MODEL=${MODEL}
+      - FEURL=http://chainlit_fe:8001
+    volumes:
+      - .:/app
+    command: uvicorn chatbot_api_backend:app --host 0.0.0.0 --port 8000
+
+  chainlit_fe:
+    build: .
+    container_name: chainlit_fe
+    ports:
+      - "8001:8001"
+    environment:
+      - FEURL=http://backend:8000
+    volumes:
+      - .:/app
+    command: chainlit run chainlit_FE.py --host 0.0.0.0 --port 8001
